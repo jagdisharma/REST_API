@@ -1,0 +1,87 @@
+FANCAST	AMAZON DETAIL:-	
+--------------------
+email->	sumitenact@gmail.com
+password->	Lbim2201
+
+url:- https://us-west-2.console.aws.amazon.com/ec2/v2/home?region=us-west-2#Instances:sort=instanceId
+
+ssh -i "fancastServer.pem" ubuntu@ec2-52-36-140-105.us-west-2.compute.amazonaws.com
+
+FTP DETAILS:-
+------------
+host:52.36.140.105
+user:ubuntu
+keyfile:fancastServer.pem
+
+
+/************************************************************************************************************************************************************/
+WaveApp
+--------
+http://18.218.28.171/phpMyAdmin
+Username: root
+Password: Lbim2201
+
+AMAZON DETAIL:-
+--------------
+waveadmin@enacteservices.com
+Admin@2018
+
+
+/************************************************************************************************************************************************************/
+DynamicLC
+
+http://18.188.241.59/stage/
+
+FTP Details:
+————————————--
+Host: 18.188.241.59
+user: ec2-user
+dynamiclc.pem file
+
+DynamicLc firebase Details:-
+———————————————————————————
+Url : https://console.firebase.google.com/
+email: nehadubeyfire@gmail.com
+password: LbimSwt22G@1
+
+/************************************************************************************************************************************************************/
+Url: http://52.26.0.156
+
+CRESENDO AMAZON DETAIL:-	
+--------------------
+email->	sumitenact@gmail.com
+password-> Lbim2201
+
+ssh -i "cresendo.pem" ec2-user@ec2-52-26-0-156.us-west-2.compute.amazonaws.com
+
+url:- https://us-west-2.console.aws.amazon.com/ec2/v2/home?region=us-west-2#Instances:sort=instanceId
+
+FTP DETAILS:-
+------------
+host=http://52.26.0.156
+User: ec2-user
+keyfile:cresendo.pem
+
+Database: 
+Username : root
+Pass: Lbim2201
+
+
+/***************************************************************************************************************************************************************/
+clients Fancast Production Account Details
+————————————————————————————————————————————
+
+AWS Account Details:-
+——————————————————————————————
+Username: dev@fancast.app
+Password: Awalrus_18
+
+ssh -i "fancastLiveNew.pem" ubuntu@ec2-52-35-111-125.us-west-2.compute.amazonaws.com
+
+Url:  http://52.35.111.125
+
+FTP
+————————————
+Host: 52.35.111.125
+User: ubuntu
+keyfile: fancastLiveNew.pem
