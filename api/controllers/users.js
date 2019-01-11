@@ -55,6 +55,7 @@ exports.loginUser = (req, res, next) => {
 					message: 'Authentication Failed'
 				});
 			}
+			//console.log(user[0].password);
 
 			bcrypt.compare(req.body.password, user[0].password, (err, result) => {
 				if(err){
@@ -90,6 +91,77 @@ exports.loginUser = (req, res, next) => {
 		});
 };
 
+exports.forgotPassword = (req, res, next) => {
+	const email = req.body.email;
+	User.find({email: email})
+		.exec()
+		.then(result => {
+			if(result.length == 1){
+				res.status(200).json({
+					message: "Request has been sent please check your email."
+				});
+			}else{
+				res.status(409).json({
+					message: "User is not Registered with us. Please Register."
+				});	
+			}
+		})
+		.catch(err => {
+			res.status(500).json({
+				error: err
+			})
+		})
+};
+
+exports.changePassword = (req, res, next) => {
+	const id = req.body.userId;
+	const OldPassword = req.body.oldpassword;
+	const newPassword = req.body.newpassword;
+	//console.log(email);
+	User.findOne({_id: id})
+		.exec()
+		.then(user => {
+			console.log(user.password);
+			/*res.status(200).json({
+				message: 'Password has been updated.'
+			});*/
+
+			bcrypt.compare(req.body.oldpassword, user.password, (err, result) => {
+				if(err){
+					return res.status(500).json({
+						error: err
+					});
+				}else{
+					bcrypt.hash(req.body.newpassword, 10, (err, hash) => {
+						if(err){
+							return res.status(500).json({
+								error: err
+							});
+						}else{
+							Product.updateOne({_id : id}, {$set :{"password": hash}})
+							.exec()
+							.then(result => {
+								res.status(200).json({
+									message: 'Password Updated Succesfully.',
+								});
+							})
+							.catch(err => {
+								res.status(500).json({
+									error: err
+								});
+							});		
+						}
+					});
+				}
+			});
+
+		})
+		.catch(error => {
+			res.status(500).json({
+				error: error 
+			});
+		})
+};	
 
 exports.deleteUser = (req, res, next) => {
 	const id = req.params.userId;
