@@ -1,0 +1,34 @@
+*******************
+*  API details:-  *
+*******************
+
+ -------------
+| User Part:- |
+ -------------
+1. Login
+2. Signup
+3. Change Password
+4. Delete user
+5. Forgot Password
+
+ -----------------
+| Products Part:- |
+ -----------------
+1. getAllProducts
+2. createProduct
+3. getAnProduct
+4. updateAnProduct
+5. deleteProduct
+
+ --------------
+| Order Part:- |
+ --------------
+1. getAllOrder
+2. createOrder
+3. getAnOrder
+4. deleteAnOrder
+
+ --------------
+| Middleware:- |
+ --------------
+1. middlware with jwt token

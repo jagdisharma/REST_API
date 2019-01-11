@@ -56,8 +56,9 @@ exports.loginUser = (req, res, next) => {
 				});
 			}
 			//console.log(user[0].password);
-
 			bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+				//console.log(req.body.password);
+				//console.log(result);
 				if(err){
 					return res.status(401).json({
 						message: 'Authentication Failed'
@@ -117,50 +118,51 @@ exports.changePassword = (req, res, next) => {
 	const id = req.body.userId;
 	const OldPassword = req.body.oldpassword;
 	const newPassword = req.body.newpassword;
-	//console.log(email);
-	User.findOne({_id: id})
+
+	User.find({_id: id})
 		.exec()
 		.then(user => {
-			console.log(user.password);
-			/*res.status(200).json({
-				message: 'Password has been updated.'
-			});*/
-
-			bcrypt.compare(req.body.oldpassword, user.password, (err, result) => {
+			bcrypt.compare(req.body.oldpassword, user[0].password, (err, result) => {
 				if(err){
-					return res.status(500).json({
-						error: err
+					return res.status(401).json({
+						message: 'Password Does Not Match. Please try with your current password.'
 					});
-				}else{
-					bcrypt.hash(req.body.newpassword, 10, (err, hash) => {
-						if(err){
-							return res.status(500).json({
-								error: err
+				}
+				if(result){
+					bcrypt.hash(req.body.newpassword, 10, (errr, hash) => {
+						console.log(hash);
+						if(errr){
+							return res.status(401).json({
+								message: 'Old Password Does Not Match. Please try again with your old password.'
 							});
 						}else{
-							Product.updateOne({_id : id}, {$set :{"password": hash}})
-							.exec()
-							.then(result => {
-								res.status(200).json({
-									message: 'Password Updated Succesfully.',
+							User.updateOne({_id : id}, {$set :{"password": hash}})
+								.exec()
+								.then(results => {
+									return res.status(200).json({
+										message: 'Password Updated Succesfully.',
+									});
+								})
+								.catch(errorr => {
+									return res.status(500).json({
+										error: errorr
+									});
 								});
-							})
-							.catch(err => {
-								res.status(500).json({
-									error: err
-								});
-							});		
 						}
 					});
 				}
+				if(!result){
+					return res.status(401).json({
+						message: 'Password Does Not Match. Please try with your current password.'
+					});
+				}
 			});
-
 		})
 		.catch(error => {
 			res.status(500).json({
 				error: error 
 			});
-		})
+		});
 };	
 
 exports.deleteUser = (req, res, next) => {
