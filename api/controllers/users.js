@@ -140,7 +140,13 @@ exports.changePassword = (req, res, next) => {
 								.exec()
 								.then(results => {
 									return res.status(200).json({
+										status: 200,
+    									result: "success",
 										message: 'Password Updated Succesfully.',
+										data: {
+											user_id: id,
+											email: user[0].email
+										}
 									});
 								})
 								.catch(errorr => {
@@ -153,7 +159,10 @@ exports.changePassword = (req, res, next) => {
 				}
 				if(!result){
 					return res.status(401).json({
-						message: 'Password Does Not Match. Please try with your current password.'
+						status: 401,
+    					result: "Failed",
+						message: 'Old Password Does Not Match. Please try again with your old password.',
+						data: {}
 					});
 				}
 			});
